@@ -1,0 +1,1 @@
+oh-my-posh --init --shell pwsh --config "$HOME/.dotfiles/config/umang.omp.json" | Invoke-Expression
