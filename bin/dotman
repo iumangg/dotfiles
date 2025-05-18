@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Copy the bin and zsh folders to the ~/.dotfiles directory
+mkdir -p ~/.dotfiles
+cp -r ./bin ~/.dotfiles
+cp -r ./zsh ~/.dotfiles
+
+# Link all the files from zsh directory to the home directory
+for file in ~/.dotfiles/zsh/.*; do
+  if [ -f "$file" ]; then
+    ln -sf "$(realpath "$file")" ~/"
+  fi
+done
