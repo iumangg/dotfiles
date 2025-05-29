@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
 
+version: 3
 upgrade:
   source: cdn
   interval: 168h
@@ -10,32 +11,33 @@ blocks:
     alignment: left
     newline: true
     segments:
-      - template: "root <#ffffff>in</> "
+      - type: root
+        style: plain
+        template: "root <#ffffff>in</> "
         foreground: "#E06C75"
-        type: root
+      - type: path
         style: plain
-      - template: "{{ .Path }} "
-        foreground: "#55B9C4"
-        type: path
-        style: plain
+        template: "{{ .Path }} "
+        foreground: cyan
         properties:
           style: unique
           # mapped_locations:
           #   /Users/umang: 🏠
-      - template: "<#ffffff>on</> {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} "
-        foreground: "#C678DD"
-        type: git
+      - type: git
         style: plain
+        template: "<#ffffff>on</> {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} "
+        foreground: magenta
         properties:
           fetch_status: true
   - type: prompt
     alignment: left
     newline: true
     segments:
-      - template: "{{ if eq .Code 0 }}<#63F08C>\u276f{{ else }}<#e91e63>\u2718{{ end }} "
-        foreground: "#63F08C"
-        type: status
+      - type: status
         style: plain
+        template: "{{ if eq .Code 0 }}<#63F08C>\u276f{{ else }}<#e91e63>\u2718{{ end }} "
         properties:
           always_enabled: true
-version: 3
+transient_prompt:
+  background: transparent
+  template: "{{ if eq .Code 0 }}<#63F08C>\u276f{{ else }}<#e91e63>\u2718{{ end }} "
