@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Dotfiles CLI tool
+case "$1" in
+  reload)
+    if [ -n "$ZSH_VERSION" ]; then
+      source ~/.zshrc
+    elif [ -n "$BASH_VERSION" ]; then
+      source ~/.bashrc
+    else
+      echo "Unknown shell"
+    fi
+    ;;
+  *)
+    echo "Usage: dot {reload}"
+    exit 1
+    ;;
+esac
