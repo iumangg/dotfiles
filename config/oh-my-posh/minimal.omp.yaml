@@ -1,0 +1,59 @@
+version: 3
+final_space: true
+console_title_template: "{{ .Folder }}"
+
+palette:
+  blue: "#61AFEF"
+  cyan: "#56B6C2"
+  green: "#98C379"
+  orange: "#D19A66"
+  purple: "#C678DD"
+  red: "#E06C75"
+  error: "#E91E63"
+  subtle: "#6C6C6C"
+  success: "#63F08C"
+  yellow: "#E5C07B"
+
+blocks:
+  - type: prompt
+    alignment: left
+    segments:
+      - type: session
+        style: plain
+        foreground: "p:green"
+        template: "{{ .UserName }} "
+
+      - type: path
+        style: plain
+        foreground: "p:blue"
+        properties:
+          style: full
+        template: "{{ .Path }} "
+
+      - type: git
+        style: plain
+        foreground: "p:green"
+        foreground_templates:
+          - "{{ if gt .Ahead 0 }}p:yellow{{ end }}"
+          - "{{ if gt .Behind 0 }}p:yellow{{ end }}"
+          - "{{ if .Working.Changed }}p:orange{{ end }}"
+          - "{{ if .Staging.Changed }}p:orange{{ end }}"
+        properties:
+          fetch_status: true
+          fetch_upstream_icon: true
+          branch_icon: "\ue725 "
+          commit_icon: "\uf417 "
+        template: "{{ .HEAD }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} "
+
+  - type: prompt
+    alignment: left
+    newline: true
+    segments:
+      - type: status
+        style: plain
+        template: "{{ if eq .Code 0 }}<p:success>\u276f{{ else }}<p:error>\u2718{{ end }} "
+        properties:
+          always_enabled: true
+transient_prompt:
+  background: transparent
+  template: "{{ if eq .Code 0 }}<p:success>\u276f{{ else }}<p:error>\u2718{{ end }} "

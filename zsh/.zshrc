@@ -1,4 +1,11 @@
-files_to_source=("aliases.zsh" "functions.zsh")
-for file in "${files_to_source[@]}"; do
-  [ -f "$file" ] && source "./.dotfiles/zsh/$file"
-done
+# Zsh configuration
+
+# Load dotfiles
+if [ -f "${HOME}/.dotfiles/shell/load.sh" ]; then
+  . "${HOME}/.dotfiles/shell/load.sh"
+fi
+
+# Zsh-specific settings
+setopt autocd 2>/dev/null || true
+
+# End of zsh configuration
